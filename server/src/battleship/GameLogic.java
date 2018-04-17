@@ -5,15 +5,12 @@
  */
 package battleship;
 
-import java.rmi.server.UnicastRemoteObject;
-import javax.jws.WebService;
 
 /**
  *
  * @author mick19955
  */
-@WebService(endpointInterface = "battleship.GameLogic")
-public class GameLogic extends UnicastRemoteObject implements GameI{ //IMPLEMENTS GAMEINTERFACE FILE
+public class GameLogic {
     
     /*
     map layout:
@@ -24,13 +21,19 @@ public class GameLogic extends UnicastRemoteObject implements GameI{ //IMPLEMENT
     */
     int height = 10;
     int width = 10;
+    String player1;
+    String player2;
     
     private int map[][] = new int[height*2][width]; 
     
     private Boolean gameOver = false;
     
-    public GameLogic() throws java.rmi.RemoteException {
-        
+    public GameLogic(String PlayerName) throws java.rmi.RemoteException {
+        player1 = PlayerName;
+    }
+    
+    public void PlayerJoin(String PlayerName) {
+        player2 = PlayerName;
     }
     
     public void Reset(){

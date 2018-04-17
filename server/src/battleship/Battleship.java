@@ -17,7 +17,7 @@ public class Battleship {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws RemoteException {
-        GameI spil = new GameLogic();
+        GameControllerI spil = new GameController();
         Endpoint.publish("http://[::]:4443/battleship", spil);
         System.out.println("Battleship started.\n");
     }
