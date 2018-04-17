@@ -18,6 +18,16 @@ import java.util.Scanner;
  *
  * @author mick19955
  */
+
+/**
+ * # 	Class of ship 	Size    Ships/player
+ * 1 	Carrier 	5       1
+ * 2 	Battleship 	4       1
+ * 3 	Cruiser 	3       1
+ * 4 	Destroyer 	2       2
+ * 5 	Submarine 	1       3
+ * @author sand
+ */
 public class GameLogic {
     
     /*
@@ -26,7 +36,9 @@ public class GameLogic {
     1: empty hit
     2: ship
     3: ship hit
+    4: ship destroyed
     */
+    
     int height = 10;
     int width = 10;
     String player1;
