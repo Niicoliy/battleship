@@ -5,6 +5,11 @@
  */
 package klient;
 
+import brugerautorisation.data.Bruger;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
 /**
  *
  * @author artorias
