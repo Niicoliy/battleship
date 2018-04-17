@@ -23,6 +23,7 @@ import javax.xml.ws.Service;
 public class KlientLogik {
     Scanner keyboard = new Scanner(System.in);  
     String Input, Username, Password;
+    int Choice;
     
     public void spil() throws MalformedURLException, RemoteException, NotBoundException{
         
@@ -36,7 +37,7 @@ public class KlientLogik {
         
         QName port_name = new QName("http://battleship/", "GameControllerPort");
         
-        GameControllerI game = service.getPort(port_name,GameControllerI.class);
+        GameControllerI game = service.getPort(port_name, GameControllerI.class);
 
         //spil.nulstil();
         
@@ -52,7 +53,21 @@ public class KlientLogik {
             //start game
             //play
             System.out.println("Youre logged in");
-
+            Boolean Play = true;
+            while(Play){
+                System.out.println("1. Create new game");
+                System.out.println("2. Join existing game");
+                Choice = keyboard.nextInt();
+                switch(Choice){
+                    
+                    case 1:
+                            System.out.println("Creating new game");
+                            break;
+                    case 2:
+                            System.out.println("Joining game");
+                            break;
+                }
+            }
         }else{
             System.out.println("Youre not logged in");
         }
