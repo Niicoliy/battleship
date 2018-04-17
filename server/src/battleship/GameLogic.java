@@ -5,6 +5,14 @@
  */
 package battleship;
 
+import brugerautorisation.data.Bruger;
+import brugerautorisation.transport.rmi.Brugeradmin;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.Scanner;
+
 
 /**
  *
@@ -27,6 +35,10 @@ public class GameLogic {
     private int map[][] = new int[height*2][width]; 
     
     private Boolean gameOver = false;
+    
+    
+    Scanner keyboard = new Scanner(System.in);  
+    String Input, Username, Password;
     
     public GameLogic(String PlayerName) throws java.rmi.RemoteException {
         player1 = PlayerName;

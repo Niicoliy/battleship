@@ -18,7 +18,7 @@ public class Battleship {
      */
     public static void main(String[] args) throws RemoteException {
         GameControllerI spil = new GameController();
-        Endpoint.publish("http://[::]:4443/battleship", spil);
+        Endpoint.publish("http://localhost:2429/battleship", spil);
         System.out.println("Battleship started.\n");
     }
     
