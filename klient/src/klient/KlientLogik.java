@@ -5,46 +5,58 @@
  */
 package klient;
 
-import brugerautorisation.data.Bruger;
-import brugerautorisation.transport.rmi.Brugeradmin;
+import battleship.GameControllerI;
 import java.net.MalformedURLException;
-import java.rmi.Naming;
+import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
+
 
 /**
  *
  * @author mick19955
  */
 public class KlientLogik {
-    
     Scanner keyboard = new Scanner(System.in);  
     String Input, Username, Password;
-            
     
-    public Bruger BrugerLogin() throws NotBoundException, RemoteException, MalformedURLException{
+    public void spil() throws MalformedURLException, RemoteException, NotBoundException{
         
-             
-        Brugeradmin ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin"); //connecting to server
-        System.out.println("Du skal nu logge ind på Jakobs linux server");
-        System.out.println("Skriv dit studienummer");
+        System.out.println("Welcome to BATTLESHIP!");
+        
+        //Attempt to connect to game server        
+        URL url = new URL("http://localhost:2429/battleship?WSDL");        //on local host
+        //URL url = new URL("http://ubuntu4.saluton.dk:4443/GalgeTest?WSDL"); //on ubunto server
+        QName qname = new QName("http://battleship/", "GameControllerService");
+        Service service = Service.create(url, qname);
+        
+        QName port_name = new QName("http://battleship/", "GameControllerPort");
+        
+        GameControllerI game = service.getPort(port_name,GameControllerI.class);
+
+        //spil.nulstil();
+        
+        System.out.println("Log in to Jakobs linux server");
+        System.out.println("Write your username");
         Username = keyboard.nextLine();
-        System.out.println("Skriv dit password");
+        System.out.println("Write your password");
         Password = keyboard.nextLine();
-        Bruger b = null;
-        try{
-            b = ba.hentBruger(Username, Password);//login with user information
-            System.out.println("Du er logget ind som " + b);
-        }catch(Exception ex){
-            System.out.println("Der skete en fejl med login");
-            System.out.println("Du er ikke logget ind");
-            System.out.println(ex);
+        
+        if(game.BrugerLogin(Username,Password)){
+            //add user
+            //game.NewGame("NewGame");
+            //start game
+            //play
+            System.out.println("Youre logged in");
+
+        }else{
+            System.out.println("Youre not logged in");
         }
-        return b;
-    }
-    
-    public void spil(){
+        
         
     }
 }

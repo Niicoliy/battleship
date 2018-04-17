@@ -22,9 +22,7 @@ public class Klient {
     public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException {
      
        KlientLogik KLogik = new KlientLogik();
-       
-       Bruger b = KLogik.BrugerLogin();
-       
+              
        KLogik.spil();
     }
     
