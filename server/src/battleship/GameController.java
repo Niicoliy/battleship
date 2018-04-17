@@ -18,7 +18,7 @@ import javax.jws.WebService;
 public class GameController extends UnicastRemoteObject implements GameControllerI{
     private Hashtable<String, GameLogic> games;
     
-    public GameController() {
+    public GameController() throws RemoteException {
         games=new Hashtable<>();
     }
     
