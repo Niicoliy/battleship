@@ -5,7 +5,6 @@
  */
 package klient;
 
-import brugerautorisation.data.Bruger;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -18,6 +17,9 @@ public class Klient {
 
     /**
      * @param args the command line arguments
+     * @throws java.rmi.NotBoundException
+     * @throws java.net.MalformedURLException
+     * @throws java.rmi.RemoteException
      */
     public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException {
      

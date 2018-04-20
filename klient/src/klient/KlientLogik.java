@@ -22,11 +22,14 @@ import javax.xml.ws.Service;
  */
 public class KlientLogik {
     Scanner keyboard = new Scanner(System.in);  
-    String Input, Username, Password;
+    String Input, Username, Password, Gamemaster;
     int Choice;
+    Boolean in_lobby = true;
+    Boolean playing = true;
+    Boolean players_ready = false;
+    Boolean waiting;
     
-    public void spil() throws MalformedURLException, RemoteException, NotBoundException{
-        
+    public void spil() throws MalformedURLException, RemoteException, NotBoundException {
         System.out.println("Welcome to BATTLESHIP!");
         
         //Attempt to connect to game server        
@@ -47,31 +50,47 @@ public class KlientLogik {
         System.out.println("Write your password");
         Password = keyboard.nextLine();
         
-        if(game.BrugerLogin(Username,Password)){
-            //add user
-            //game.NewGame("NewGame");
-            //start game
-            //play
+        if(game.BrugerLogin(Username,Password)) {
             System.out.println("Youre logged in");
-            Boolean Play = true;
-            while(Play){
-                System.out.println("1. Create new game");
-                System.out.println("2. Join existing game");
-                Choice = keyboard.nextInt();
-                switch(Choice){
-                    
-                    case 1:
+            while(playing) {
+                if(in_lobby) {
+                    System.out.println("1. Create new game");
+                    System.out.println("2. Join existing game");
+                    Choice = keyboard.nextInt();
+                    switch(Choice) {
+                        case 1:
                             System.out.println("Creating new game");
+                            game.NewGame(Username);
+                            Gamemaster = Username;
+                            in_lobby = false;
+                            waiting = true;
                             break;
-                    case 2:
+                        case 2:
                             System.out.println("Joining game");
                             break;
+                        case 'q':
+                            playing=false;
+                            break;
+                    }
+                }
+                else {
+                    if(players_ready) {
+                        
+                    }
+                    else {
+                        if(waiting) {
+                            System.out.println("Waiting for other players");
+                            waiting = false;
+                        }
+                        if(game.getGame(Gamemaster).getReadyToStart()) {
+                            
+                        }
+                    }
                 }
             }
-        }else{
+        }
+        else {
             System.out.println("Youre not logged in");
         }
-        
-        
     }
 }
