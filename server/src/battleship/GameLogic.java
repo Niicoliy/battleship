@@ -5,12 +5,6 @@
  */
 package battleship;
 
-import brugerautorisation.data.Bruger;
-import brugerautorisation.transport.rmi.Brugeradmin;
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.Scanner;
 
 
@@ -43,6 +37,7 @@ public class GameLogic {
     int width = 10;
     String player1;
     String player2;
+    Boolean ready_to_start = false;
     
     private int map[][] = new int[height*2][width]; 
     
@@ -58,6 +53,7 @@ public class GameLogic {
     
     public void PlayerJoin(String PlayerName) {
         player2 = PlayerName;
+        ready_to_start = true;
     }
     
     public void Reset(){
@@ -169,5 +165,11 @@ public class GameLogic {
     public Boolean getGameOver() {
         return gameOver;
     }
-
+    
+    /**
+     * @return the ready_to_start
+     */
+    public Boolean getReadyToStart() {
+        return ready_to_start;
+    }
 }

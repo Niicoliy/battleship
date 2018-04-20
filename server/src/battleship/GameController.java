@@ -39,6 +39,9 @@ public class GameController extends UnicastRemoteObject implements GameControlle
         }
     }
     
+    public GameLogic getGame(String GameStarter) {
+        return games.get(GameStarter);
+    }
   
     public Boolean BrugerLogin(String Username, String Password) throws NotBoundException, RemoteException, MalformedURLException{
              
