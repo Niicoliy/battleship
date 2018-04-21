@@ -26,7 +26,6 @@ public class KlientLogik {
     int Choice;
     Boolean in_lobby = true;
     Boolean playing = true;
-    Boolean players_ready = false;
     Boolean waiting;
     
     public void spil() throws MalformedURLException, RemoteException, NotBoundException {
@@ -66,6 +65,11 @@ public class KlientLogik {
                             waiting = true;
                             break;
                         case 2:
+                            //Print list of games
+                            
+                            //Scanner
+                            
+                            
                             System.out.println("Joining game");
                             break;
                         case 'q':
@@ -74,16 +78,14 @@ public class KlientLogik {
                     }
                 }
                 else {
-                    if(players_ready) {
+                    //if both players are in the game
+                    if(game.getGame(Gamemaster).getReadyToStart()) {
                         
                     }
                     else {
                         if(waiting) {
                             System.out.println("Waiting for other players");
                             waiting = false;
-                        }
-                        if(game.getGame(Gamemaster).getReadyToStart()) {
-                            
                         }
                     }
                 }
