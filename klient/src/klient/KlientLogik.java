@@ -12,6 +12,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
@@ -29,7 +30,7 @@ public class KlientLogik {
     Boolean in_game = true;
     Set games;
     
-    public void spil() throws MalformedURLException, RemoteException, NotBoundException {
+    public void spil() throws MalformedURLException, RemoteException, NotBoundException, InterruptedException {
         System.out.println("Welcome to BATTLESHIP!");
         
         //Attempt to connect to game server        
@@ -88,16 +89,23 @@ public class KlientLogik {
                 }
                 else {
                     //if both players are in the game
-                    if(game.getGame(Gamemaster).getReadyToStart()) {
+                    if(game.getGame(Gamemaster).getReady_to_start()) {
                         if(in_game) {
                             System.out.println("Started game");
+                            System.out.println("Now do all the game stuff");
+                            
+                            //
                             in_game = false;
                         }
                     }
                     else {
                         if(waiting) {
                             System.out.println("Waiting for other players");
-                            waiting = false;
+                            while(!game.getGame(Gamemaster).getReady_to_start()){
+                                TimeUnit.SECONDS.sleep(1);
+                                System.out.println("Waiting for other players");
+                            }
+                            //waiting = false;
                         }
                     }
                 }

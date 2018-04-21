@@ -21,7 +21,7 @@ public class Klient {
      * @throws java.net.MalformedURLException
      * @throws java.rmi.RemoteException
      */
-    public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException {
+    public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException, InterruptedException {
      
        KlientLogik KLogik = new KlientLogik();
               
