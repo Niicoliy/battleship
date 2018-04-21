@@ -66,7 +66,8 @@ public class GameController extends UnicastRemoteObject implements GameControlle
             return false;
         }
     }
-    
+    /* Realised this was not needed withing the controller, as all these are simply
+    copies of functions from GameLogic
     
     public Boolean getPlayerturn(String GameKey){
         return games.get(GameKey).getPlayerturn();
@@ -79,5 +80,16 @@ public class GameController extends UnicastRemoteObject implements GameControlle
     public void Reset(String GameKey){
         games.get(GameKey).Reset();
     }
+    
+    
+    public Boolean getReady_to_start(String GameKey) {
+        return games.get(GameKey).getReady_to_start();
+    }
+
+
+    public void setReady_to_start(String GameKey, Boolean ready_to_start) {
+        games.get(GameKey).setReady_to_start(ready_to_start);
+    }
+    */
 
 }

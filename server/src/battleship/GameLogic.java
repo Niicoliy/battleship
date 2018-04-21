@@ -36,7 +36,7 @@ public class GameLogic {
     int width = 10;
     String player1;
     String player2;
-    Boolean ready_to_start;
+    private Boolean ready_to_start;
     private int map[][] = new int[height*2][width];
     private Boolean gameOver;
     Scanner keyboard = new Scanner(System.in);  
@@ -58,7 +58,7 @@ public class GameLogic {
     
     public void PlayerJoin(String PlayerName) {
         player2 = PlayerName;
-        ready_to_start = true; //Theres two players in lobby, we are ready to start
+        setReady_to_start((Boolean) true); //Theres two players in lobby, we are ready to start
     }
     
     public void Reset(){
@@ -171,13 +171,6 @@ public class GameLogic {
     public Boolean getGameOver() {
         return gameOver;
     }
-    
-    /**
-     * @return the ready_to_start
-     */
-    public Boolean getReadyToStart() {
-        return ready_to_start;
-    }
 
     /**
      * @return the playerturn
@@ -191,5 +184,19 @@ public class GameLogic {
      */
     public void togglePlayerturn() {
         this.playerturn = !playerturn;
+    }
+
+    /**
+     * @return the ready_to_start
+     */
+    public Boolean getReady_to_start() {
+        return ready_to_start;
+    }
+
+    /**
+     * @param ready_to_start the ready_to_start to set
+     */
+    public void setReady_to_start(Boolean ready_to_start) {
+        this.ready_to_start = ready_to_start;
     }
 }
