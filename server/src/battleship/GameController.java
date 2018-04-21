@@ -13,7 +13,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Hashtable;
-import java.util.Scanner;
+import java.util.Set;
 import javax.jws.WebService;
 
 /**
@@ -41,6 +41,10 @@ public class GameController extends UnicastRemoteObject implements GameControlle
     
     public GameLogic getGame(String GameStarter) {
         return games.get(GameStarter);
+    }
+    
+    public Set getAllGames() {
+        return games.keySet();
     }
   
     public Boolean BrugerLogin(String Username, String Password) throws NotBoundException, RemoteException, MalformedURLException{
