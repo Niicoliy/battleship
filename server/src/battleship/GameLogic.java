@@ -36,14 +36,20 @@ public class GameLogic {
     int width = 10;
     String player1;
     String player2;
-    Boolean ready_to_start = false;
+    Boolean ready_to_start;
     private int map[][] = new int[height*2][width];
-    private Boolean gameOver = false;
+    private Boolean gameOver;
     Scanner keyboard = new Scanner(System.in);  
     String Input, Username, Password;
     
-    public GameLogic() {
-        
+    private Boolean playerturn; 
+                            //false = player one
+                            //true = player two
+    
+    public GameLogic() { //constructor
+        playerturn = true;
+        ready_to_start = false;
+        gameOver = false;
     }
     
     public GameLogic(String PlayerName) throws java.rmi.RemoteException {
@@ -52,12 +58,13 @@ public class GameLogic {
     
     public void PlayerJoin(String PlayerName) {
         player2 = PlayerName;
-        ready_to_start = true;
+        ready_to_start = true; //Theres two players in lobby, we are ready to start
     }
     
     public void Reset(){
         EmptyMap();
         gameOver = false;
+        playerturn = true;
     }
     
     public void EmptyMap(){
@@ -68,8 +75,8 @@ public class GameLogic {
         }
     }
     
-    public int PlaceShip(int shipsize, int x, int y, Boolean horizontal, int playerturn){
-        if(playerturn == 1){
+    public int PlaceShip(int shipsize, int x, int y, Boolean horizontal){
+        if(playerturn){ //== 1 == true
             //validate
             if((shipsize + x < width) && horizontal){
                 return 0;
@@ -110,8 +117,8 @@ public class GameLogic {
         }
     }
     
-    public int Shoot(int x, int y,int playerturn){
-        if(playerturn == 1){
+    public int Shoot(int x, int y){
+        if(playerturn){//== 1 == true
             if(getMap()[x][y] != 2){
                 return 0; //didnt hit undamaged ship
             }else{
@@ -128,9 +135,9 @@ public class GameLogic {
         }
     }
     
-    public int IsGameOver(int playerturn){
+    public int IsGameOver(){
         
-        if(playerturn == 1){
+        if(playerturn){
             for(int i = 0; i < width; i++){
                 for(int j = 0; j < height; j++){
                     if(getMap()[i][j] == 2){
@@ -170,5 +177,19 @@ public class GameLogic {
      */
     public Boolean getReadyToStart() {
         return ready_to_start;
+    }
+
+    /**
+     * @return the playerturn
+     */
+    public Boolean getPlayerturn() {
+        return playerturn;
+    }
+
+    /**
+     * @param playerturn the playerturn to set
+     */
+    public void togglePlayerturn() {
+        this.playerturn = !playerturn;
     }
 }

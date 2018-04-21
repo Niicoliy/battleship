@@ -33,20 +33,20 @@ public class GameController extends UnicastRemoteObject implements GameControlle
        games.put(PlayerName, new GameLogic(PlayerName));
     }
     
-    public void JoinGame(String GameStarter, String NewPlayer) {
-        if(games.containsKey(GameStarter)) {
-            games.get(GameStarter).PlayerJoin(NewPlayer);
+    public void JoinGame(String GameKey, String NewPlayer) {
+        if(games.containsKey(GameKey)) {
+            games.get(GameKey).PlayerJoin(NewPlayer);
         }
     }
     
-    public GameLogic getGame(String GameStarter) {
-        return games.get(GameStarter);
-    }
+    public GameLogic getGame(String GameKey) {
+        return games.get(GameKey);
+    }  
     
     public Set getAllGames() {
         return games.keySet();
     }
-  
+   
     public Boolean BrugerLogin(String Username, String Password) throws NotBoundException, RemoteException, MalformedURLException{
              
         Brugeradmin ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin"); //connecting to server
@@ -66,4 +66,18 @@ public class GameController extends UnicastRemoteObject implements GameControlle
             return false;
         }
     }
+    
+    
+    public Boolean getPlayerturn(String GameKey){
+        return games.get(GameKey).getPlayerturn();
+    }
+    
+    public void togglePlayerturn(String GameKey){
+        games.get(GameKey).togglePlayerturn(); //if true then false, if false then ture
+    }
+    
+    public void Reset(String GameKey){
+        games.get(GameKey).Reset();
+    }
+
 }
