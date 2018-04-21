@@ -8,6 +8,7 @@ package battleship;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Set;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
@@ -21,4 +22,5 @@ public interface GameControllerI {
     @WebMethod public void JoinGame(String GameStarter, String NewPlayer);
     @WebMethod public Boolean BrugerLogin(String Username, String Password)throws NotBoundException, RemoteException, MalformedURLException;
     @WebMethod public GameLogic getGame(String GameStarter);
+    @WebMethod public Set getAllGames();
 }

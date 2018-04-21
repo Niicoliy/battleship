@@ -15,6 +15,7 @@ public class Battleship {
     
     /**
      * @param args the command line arguments
+     * @throws java.rmi.RemoteException
      */
     public static void main(String[] args) throws RemoteException {
         GameControllerI spil = new GameController();

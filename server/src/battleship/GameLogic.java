@@ -23,7 +23,6 @@ import java.util.Scanner;
  * @author sand
  */
 public class GameLogic {
-    
     /*
     map layout:
     0: empty
@@ -38,14 +37,14 @@ public class GameLogic {
     String player1;
     String player2;
     Boolean ready_to_start = false;
-    
-    private int map[][] = new int[height*2][width]; 
-    
+    private int map[][] = new int[height*2][width];
     private Boolean gameOver = false;
-    
-    
     Scanner keyboard = new Scanner(System.in);  
     String Input, Username, Password;
+    
+    public GameLogic() {
+        
+    }
     
     public GameLogic(String PlayerName) throws java.rmi.RemoteException {
         player1 = PlayerName;
