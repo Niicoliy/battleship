@@ -11,22 +11,23 @@ import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
+import java.util.Set;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-
-
 
 /**
  *
  * @author mick19955
  */
 public class KlientLogik {
-    Scanner keyboard = new Scanner(System.in);  
-    String Input, Username, Password, Gamemaster;
+    Scanner keyboard = new Scanner(System.in);
+    String Input, Username, Password, Gamemaster, Gamename;
     int Choice;
     Boolean in_lobby = true;
     Boolean playing = true;
-    Boolean waiting;
+    Boolean waiting = false;
+    Boolean in_game = true;
+    Set games;
     
     public void spil() throws MalformedURLException, RemoteException, NotBoundException {
         System.out.println("Welcome to BATTLESHIP!");
@@ -36,9 +37,7 @@ public class KlientLogik {
         //URL url = new URL("http://ubuntu4.saluton.dk:4443/GalgeTest?WSDL"); //on ubunto server
         QName qname = new QName("http://battleship/", "GameControllerService");
         Service service = Service.create(url, qname);
-        
         QName port_name = new QName("http://battleship/", "GameControllerPort");
-        
         GameControllerI game = service.getPort(port_name, GameControllerI.class);
 
         //spil.nulstil();
@@ -66,11 +65,21 @@ public class KlientLogik {
                             break;
                         case 2:
                             //Print list of games
-                            
+                            games = game.getAllGames();
+                            System.out.println("List of games:" + games);
                             //Scanner
-                            
-                            
-                            System.out.println("Joining game");
+                            System.out.println("Type a game you want to join:");
+                            keyboard.nextLine();
+                            Gamename = keyboard.nextLine();
+                            if(games.contains(Gamename)) {
+                                game.JoinGame(Gamename, Username);
+                                Gamemaster = Gamename;
+                                in_lobby = false;
+                                System.out.println("Joining game");
+                            }
+                            else {
+                                System.out.println("Invalid input");
+                            }
                             break;
                         case 'q':
                             playing=false;
@@ -80,7 +89,10 @@ public class KlientLogik {
                 else {
                     //if both players are in the game
                     if(game.getGame(Gamemaster).getReadyToStart()) {
-                        
+                        if(in_game) {
+                            System.out.println("Started game");
+                            in_game = false;
+                        }
                     }
                     else {
                         if(waiting) {
