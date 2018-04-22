@@ -26,8 +26,6 @@ public class KlientLogik {
     int Choice;
     Boolean in_lobby = true;
     Boolean playing = true;
-    Boolean waiting = false;
-    Boolean in_game = true;
     Set games;
     
     public void spil() throws MalformedURLException, RemoteException, NotBoundException, InterruptedException {
@@ -62,7 +60,6 @@ public class KlientLogik {
                             game.NewGame(Username);
                             Gamemaster = Username;
                             in_lobby = false;
-                            waiting = true;
                             break;
                         case 2:
                             //Print list of games
@@ -90,23 +87,12 @@ public class KlientLogik {
                 else {
                     //if both players are in the game
                     if(game.getGame(Gamemaster).getReady_to_start()) {
-                        if(in_game) {
-                            System.out.println("Started game");
-                            System.out.println("Now do all the game stuff");
-                            
-                            //
-                            in_game = false;
-                        }
+                        System.out.println("Started game");
+                        System.out.println("Now do all the game stuff");
                     }
                     else {
-                        if(waiting) {
-                            System.out.println("Waiting for other players");
-                            while(!game.getGame(Gamemaster).getReady_to_start()){
-                                TimeUnit.SECONDS.sleep(1);
-                                System.out.println("Waiting for other players");
-                            }
-                            //waiting = false;
-                        }
+                        System.out.println("Waiting for other players");
+                        TimeUnit.SECONDS.sleep(1);
                     }
                 }
             }
