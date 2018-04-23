@@ -30,18 +30,22 @@ public class GameController extends UnicastRemoteObject implements GameControlle
     
     //TODO: Dont allow these functions with out identifyable user
     public void NewGame(String PlayerName) throws RemoteException {
-       games.put(PlayerName, new GameLogic(PlayerName));
+       games.put(PlayerName, new GameLogic());
     }
     
     public void JoinGame(String GameKey, String NewPlayer) {
         if(games.containsKey(GameKey)) {
-            games.get(GameKey).PlayerJoin(NewPlayer);
+            games.get(GameKey).PlayerJoin(GameKey, NewPlayer);
         }
+    }
+    
+    public void togglePlayerturn(String GameKey) {
+        games.get(GameKey).togglePlayerturn();
     }
     
     public GameLogic getGame(String GameKey) {
         return games.get(GameKey);
-    }  
+    }
     
     public Set getAllGames() {
         return games.keySet();

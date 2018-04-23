@@ -27,6 +27,7 @@ public class KlientLogik {
     Boolean in_lobby = true;
     Boolean playing = true;
     Set games;
+    //GameLogic currentGame;
     
     public void spil() throws MalformedURLException, RemoteException, NotBoundException, InterruptedException {
         System.out.println("Welcome to BATTLESHIP!");
@@ -59,19 +60,16 @@ public class KlientLogik {
                             System.out.println("Creating new game");
                             game.NewGame(Username);
                             Gamemaster = Username;
+                            //currentGame = game.getGame(Gamemaster);
                             in_lobby = false;
                             break;
                         case 2:
-                            //Print list of games
                             games = game.getAllGames();
-                            System.out.println("List of games:" + games);
-                            //Scanner
-                            System.out.println("Type a game you want to join:");
+                            System.out.println("Type a game you want to join: " + games);
                             keyboard.nextLine();
-                            Gamename = keyboard.nextLine();
-                            if(games.contains(Gamename)) {
-                                game.JoinGame(Gamename, Username);
-                                Gamemaster = Gamename;
+                            Gamemaster = keyboard.nextLine();
+                            if(games.contains(Gamemaster)) {
+                                game.JoinGame(Gamemaster, Username);
                                 in_lobby = false;
                                 System.out.println("Joining game");
                             }
@@ -88,7 +86,15 @@ public class KlientLogik {
                     //if both players are in the game
                     if(game.getGame(Gamemaster).getReady_to_start()) {
                         System.out.println("Started game");
-                        System.out.println("Now do all the game stuff");
+                        System.out.println(game.getGame(Gamemaster).getPlayerturn());
+                        //Wait while loop
+                        while(!((game.getGame(Gamemaster).getPlayerturn()).equals(Username))) {
+                            TimeUnit.SECONDS.sleep(1);
+                        }
+                        //Do turn
+                        keyboard.nextLine();
+                        game.togglePlayerturn(Gamemaster);
+                        TimeUnit.SECONDS.sleep(1);
                     }
                     else {
                         System.out.println("Waiting for other players");
