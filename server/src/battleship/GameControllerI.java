@@ -20,6 +20,7 @@ import javax.jws.WebService;
 public interface GameControllerI {    
     @WebMethod public void NewGame(String PlayerName) throws RemoteException;
     @WebMethod public void JoinGame(String GameKey, String NewPlayer);
+    @WebMethod public void togglePlayerturn(String GameKey);
     @WebMethod public Boolean BrugerLogin(String Username, String Password)throws NotBoundException, RemoteException, MalformedURLException;
     @WebMethod public GameLogic getGame(String GameStarter);
     @WebMethod public Set getAllGames();
