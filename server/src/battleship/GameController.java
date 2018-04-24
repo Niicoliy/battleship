@@ -71,8 +71,8 @@ public class GameController extends UnicastRemoteObject implements GameControlle
         }
     }
     
-    public void getPrintBoard(String GameKey){
-        games.get(GameKey).printBoard();
+    public int[][] getMap(String GameKey){
+        return games.get(GameKey).getMap();
     }
     
     public void getPlaceShip(String GameKey, int shipsize, int x, int y, Boolean horizontalBool){
