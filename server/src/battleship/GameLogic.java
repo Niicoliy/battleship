@@ -77,8 +77,10 @@ public class GameLogic {
         if(playerturn.equals(player1)){ //== 1 == true
             //validate
             if((shipsize + x < width) && horizontal){
+                System.out.println("Ship place error width out of bounds");
                 return 0;
             }else if((shipsize + y < height) && !horizontal){
+                System.out.println("Ship place error height out of bounds");
                 return 0;
             }
             else{ //Ship can now be placed into map
@@ -91,6 +93,8 @@ public class GameLogic {
                         map[x][i] = 2; //placing ship, moving up
                     }
                 } 
+                printBoard();
+                System.out.println("Ship being placed player 1");
                 return 1; //ship placed
             }
         }else{ //playerturn == 2
@@ -110,9 +114,12 @@ public class GameLogic {
                         map[x][i+10] = 2; //placing ship, moving up
                     }
                 } 
+                System.out.println("Ship being placed player 2");
+                printBoard();
                 return 1; //ship placed
             }
         }
+        
     }
     
     public int Shoot(int x, int y){
@@ -218,5 +225,23 @@ public class GameLogic {
      */
     public void setPlayer2(String player2) {
         this.player2 = player2;
+    }
+    
+    public void printBoard(){
+        if(playerturn.equals(player1)){
+            for(int i = 0; i < width; i++){
+                for(int j = 0; j < height; j++){
+                    System.out.print(map[j][i]);
+                }
+                System.out.println("");
+            }
+        }else{ //playerturn == 2
+            for(int i = 0; i < width; i++){
+                for(int j = 10; j < height*2; j++){
+                    System.out.print(map[j][i]);
+                }
+                System.out.println("");
+            }
+        }
     }
 }

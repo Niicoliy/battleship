@@ -70,6 +70,15 @@ public class GameController extends UnicastRemoteObject implements GameControlle
             return false;
         }
     }
+    
+    public void getPrintBoard(String GameKey){
+        games.get(GameKey).printBoard();
+    }
+    
+    public void getPlaceShip(String GameKey, int shipsize, int x, int y, Boolean horizontalBool){
+        games.get(GameKey).PlaceShip(shipsize, x, y, horizontalBool);
+    }
+    
     /* Realised this was not needed withing the controller, as all these are simply
     copies of functions from GameLogic
     

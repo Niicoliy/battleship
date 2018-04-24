@@ -24,4 +24,7 @@ public interface GameControllerI {
     @WebMethod public Boolean BrugerLogin(String Username, String Password)throws NotBoundException, RemoteException, MalformedURLException;
     @WebMethod public GameLogic getGame(String GameStarter);
     @WebMethod public Set getAllGames();
+    @WebMethod public void getPrintBoard(String GameKey);
+    @WebMethod public void getPlaceShip(String GameKey, int shipsize, int x, int y, Boolean horizontalBool);
+
 }
