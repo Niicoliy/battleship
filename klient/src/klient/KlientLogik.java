@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -56,6 +57,7 @@ public class KlientLogik {
                     System.out.println("1. Create new game");
                     System.out.println("2. Join existing game");
                     Choice = keyboard.nextInt();
+                    keyboard.nextLine();
                     switch(Choice) {
                         case 1:
                             System.out.println("Creating new game");
@@ -67,7 +69,6 @@ public class KlientLogik {
                         case 2:
                             games = game.getAllGames();
                             System.out.println("Type a game you want to join: " + games);
-                            keyboard.nextLine();
                             Gamemaster = keyboard.nextLine();
                             if(games.contains(Gamemaster)) {
                                 game.JoinGame(Gamemaster, Username);
@@ -92,7 +93,7 @@ public class KlientLogik {
                             TimeUnit.SECONDS.sleep(1);
                         }
                         //Do turn
-                        game.getGame(Gamemaster).printBoard();
+                        print2D(game.getMap(Gamemaster));
                         System.out.println("Its your turn...");
                         System.out.println("press X to deploy ship");
                         Input = keyboard.nextLine();
@@ -106,6 +107,7 @@ public class KlientLogik {
                             y = keyboard.nextInt();
                             System.out.println("Choose if ship is placed moving vertically(0) or horizontally(1)");
                             horizontal = keyboard.nextInt();
+                            keyboard.nextLine();
                             if(horizontal == 1){
                                 horizontalBool = true;
                             }else{
@@ -126,6 +128,11 @@ public class KlientLogik {
         }
         else {
             System.out.println("Youre not logged in");
+        }
+    }
+    public void print2D(int map[][]) {
+        for(int[] row : map) {
+            System.out.println(Arrays.toString(row));
         }
     }
 }
