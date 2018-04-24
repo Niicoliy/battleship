@@ -1,3 +1,29 @@
-<p>
-  login works!
-</p>
+<div class="container color-dark">
+  <div class="col">
+    <p class="heading">
+      Login to Battleship
+    </p>
+  </div>
+  <div class="col">
+    <p class="heading">
+      Top 5 highscores
+    </p>
+  </div>
+</div>
+
+<div class="container color-light" [@highscores]="highscores.length">
+  <div class="col">
+    <form>
+      <p class="sm">Username:</p>
+      <input type="text" class="txt" name="username" placeholder="e.g. s123456"/>
+      <p class="sm">Password:</p>
+      <input type="text" class="txt" name="password" placeholder="e.g. password"/>
+      <input type="submit" class="btn" [value]="btnText" (click)="login()"/>
+    </form>
+  </div>
+  <div class="col">
+    <p class="life-container" *ngFor="let highscore of highscores, let i = index">
+      {{ highscore }}
+    </p>
+  </div>
+</div>
