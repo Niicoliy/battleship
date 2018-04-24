@@ -78,31 +78,4 @@ public class GameController extends UnicastRemoteObject implements GameControlle
     public void getPlaceShip(String GameKey, int shipsize, int x, int y, Boolean horizontalBool){
         games.get(GameKey).PlaceShip(shipsize, x, y, horizontalBool);
     }
-    
-    /* Realised this was not needed withing the controller, as all these are simply
-    copies of functions from GameLogic
-    
-    public Boolean getPlayerturn(String GameKey){
-        return games.get(GameKey).getPlayerturn();
-    }
-    
-    public void togglePlayerturn(String GameKey){
-        games.get(GameKey).togglePlayerturn(); //if true then false, if false then ture
-    }
-    
-    public void Reset(String GameKey){
-        games.get(GameKey).Reset();
-    }
-    
-    
-    public Boolean getReady_to_start(String GameKey) {
-        return games.get(GameKey).getReady_to_start();
-    }
-
-
-    public void setReady_to_start(String GameKey, Boolean ready_to_start) {
-        games.get(GameKey).setReady_to_start(ready_to_start);
-    }
-    */
-
 }
