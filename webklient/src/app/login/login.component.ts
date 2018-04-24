@@ -33,10 +33,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.goals.push(this.goalText);
-    this.goalText = '';
-    this.itemCount = this.goals.length;
-    this._data.changeGoal(this.goals);
+    //this.goals.push(this.goalText);
+    //this.goalText = '';
+    //this.itemCount = this.goals.length;
+    //this._data.changeGoal(this.goals);
   }
 
 }
