@@ -23,7 +23,8 @@ import javax.xml.ws.Service;
 public class KlientLogik {
     Scanner keyboard = new Scanner(System.in);
     String Input, Username, Password, Gamemaster, Gamename;
-    int Choice;
+    int Choice, shipsize, x, y, horizontal;
+    Boolean horizontalBool;
     Boolean in_lobby = true;
     Boolean playing = true;
     Set games;
@@ -77,7 +78,7 @@ public class KlientLogik {
                                 System.out.println("Invalid input");
                             }
                             break;
-                        case 'q':
+                        case 0:
                             playing=false;
                             break;
                     }
@@ -85,15 +86,35 @@ public class KlientLogik {
                 else {
                     //if both players are in the game
                     if(game.getGame(Gamemaster).getReady_to_start()) {
-                        System.out.println("Started game");
-                        System.out.println(game.getGame(Gamemaster).getPlayerturn());
+                        System.out.println("The turn belongs to "+game.getGame(Gamemaster).getPlayerturn());
                         //Wait while loop
-                        while(!((game.getGame(Gamemaster).getPlayerturn()).equals(Username))) {
+                        while(!((game.getGame(Gamemaster).getPlayerturn()).equals(Username))) { //Not your turn
                             TimeUnit.SECONDS.sleep(1);
                         }
                         //Do turn
-                        keyboard.nextLine();
+                        game.getGame(Gamemaster).printBoard();
+                        System.out.println("Its your turn...");
+                        System.out.println("press X to deploy ship");
+                        Input = keyboard.nextLine();
+                        if(Input.equals("X")){
+                            System.out.println("X was inputted");
+                            System.out.println("Choose ship size");
+                            shipsize = keyboard.nextInt();
+                            System.out.println("Choose start x coordinate");
+                            x = keyboard.nextInt();
+                            System.out.println("Choose start y coordinate");
+                            y = keyboard.nextInt();
+                            System.out.println("Choose if ship is placed moving vertically(0) or horizontally(1)");
+                            horizontal = keyboard.nextInt();
+                            if(horizontal == 1){
+                                horizontalBool = true;
+                            }else{
+                                horizontalBool = false;
+                            }
+                            game.getPlaceShip(Gamemaster,shipsize, x, y, horizontalBool);
+                        }
                         game.togglePlayerturn(Gamemaster);
+                        System.out.println("Turn has changed, it is no longer your turn");
                         TimeUnit.SECONDS.sleep(1);
                     }
                     else {
