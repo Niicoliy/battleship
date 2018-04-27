@@ -95,20 +95,30 @@ public class KlientLogik {
                         System.out.println("The turn belongs to "+game.getGame(Gamemaster).getPlayerturn());
                         //Wait while loop
                         while(!((game.getGame(Gamemaster).getPlayerturn()).equals(Username))) { //Not your turn
+                            if(game.getGame(Gamemaster).getGameOver()) {
+                                System.out.println("You lost!");
+                                in_lobby = true;
+                                break;
+                            }
                             TimeUnit.SECONDS.sleep(1);
                         }
-                        if(ship_placing) {//Place ships
-                            PlaceShips();
-                            ship_placing = false;
+                        if(!game.getGame(Gamemaster).getGameOver()) { //Put so losing player doesn't call any functions
+                            if(ship_placing) {//Place ships
+                                PlaceShips();
+                                ship_placing = false;
+                            }
+                            else { //Play the game
+                                Shoot();
+                                printMap();
+                                if(game.IsGameOver(Username, Gamemaster)) {
+                                    System.out.println("You won!");
+                                    in_lobby = true;
+                                }
+                            }
+                            game.togglePlayerturn(Gamemaster);
+                            System.out.println("Turn has changed, it is no longer your turn");
+                            TimeUnit.SECONDS.sleep(1);
                         }
-                        else { //Play the game
-                            Shoot();
-                            printMap();
-                            //Is game over?
-                        }
-                        game.togglePlayerturn(Gamemaster);
-                        System.out.println("Turn has changed, it is no longer your turn");
-                        TimeUnit.SECONDS.sleep(1);
                     }
                     else {
                         System.out.println("Waiting for other players");
