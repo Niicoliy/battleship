@@ -24,11 +24,13 @@ import javax.xml.ws.Service;
 public class KlientLogik {
     Scanner keyboard = new Scanner(System.in);
     String Input, Username, Password, Gamemaster, Gamename;
-    int Choice, shipsize, x, y, horizontal;
+    int Choice, shipsize, x, y, direction;
     Boolean horizontalBool;
     Boolean in_lobby = true;
     Boolean playing = true;
+    Boolean ship_placing;
     Set games;
+    GameControllerI game;
     //GameLogic currentGame;
     
     public void spil() throws MalformedURLException, RemoteException, NotBoundException, InterruptedException {
@@ -40,7 +42,7 @@ public class KlientLogik {
         QName qname = new QName("http://battleship/", "GameControllerService");
         Service service = Service.create(url, qname);
         QName port_name = new QName("http://battleship/", "GameControllerPort");
-        GameControllerI game = service.getPort(port_name, GameControllerI.class);
+        game = service.getPort(port_name, GameControllerI.class);
 
         //spil.nulstil();
         
@@ -63,8 +65,8 @@ public class KlientLogik {
                             System.out.println("Creating new game");
                             game.NewGame(Username);
                             Gamemaster = Username;
-                            //currentGame = game.getGame(Gamemaster);
                             in_lobby = false;
+                            ship_placing = true;
                             break;
                         case 2:
                             games = game.getAllGames();
@@ -73,6 +75,7 @@ public class KlientLogik {
                             if(games.contains(Gamemaster)) {
                                 game.JoinGame(Gamemaster, Username);
                                 in_lobby = false;
+                                ship_placing = true;
                                 System.out.println("Joining game");
                             }
                             else {
@@ -92,28 +95,30 @@ public class KlientLogik {
                         while(!((game.getGame(Gamemaster).getPlayerturn()).equals(Username))) { //Not your turn
                             TimeUnit.SECONDS.sleep(1);
                         }
-                        //Do turn
-                        print2D(game.getMap(Gamemaster));
-                        System.out.println("Its your turn...");
-                        System.out.println("press X to deploy ship");
-                        Input = keyboard.nextLine();
-                        if(Input.equals("X")){
-                            System.out.println("X was inputted");
-                            System.out.println("Choose ship size");
-                            shipsize = keyboard.nextInt();
-                            System.out.println("Choose start x coordinate");
-                            x = keyboard.nextInt();
-                            System.out.println("Choose start y coordinate");
-                            y = keyboard.nextInt();
-                            System.out.println("Choose if ship is placed moving vertically(0) or horizontally(1)");
-                            horizontal = keyboard.nextInt();
-                            keyboard.nextLine();
-                            if(horizontal == 1){
-                                horizontalBool = true;
-                            }else{
-                                horizontalBool = false;
+                        if(ship_placing) {//Place ships
+                            System.out.println("Place your carrier (5)");
+                            PlaceShip(5);
+                            printMap();
+                            System.out.println("Place your battleship (4)");
+                            PlaceShip(4);
+                            printMap();
+                            System.out.println("Place your cruiser (3)");
+                            PlaceShip(3);
+                            printMap();
+                            System.out.println("Place your destroyers (2)");
+                            for(int i = 0; i < 2; i += 1) {
+                                PlaceShip(2);
+                                printMap();
                             }
-                            game.getPlaceShip(Gamemaster,shipsize, x, y, horizontalBool);
+                            System.out.println("Place your submarines (1)");
+                            for(int i = 0; i < 3; i += 1) {
+                                PlaceShip(1);
+                                printMap();
+                            }
+                            ship_placing = false;
+                        }
+                        else { //Play the game
+                            printMap();
                         }
                         game.togglePlayerturn(Gamemaster);
                         System.out.println("Turn has changed, it is no longer your turn");
@@ -130,9 +135,32 @@ public class KlientLogik {
             System.out.println("Youre not logged in");
         }
     }
-    public void print2D(int map[][]) {
-        for(int[] row : map) {
-            System.out.println(Arrays.toString(row));
+    
+    public void PlaceShip(int ShipSize) {
+        System.out.println("Choose start x coordinate");
+        x = keyboard.nextInt();
+        System.out.println("Choose start y coordinate");
+        y = keyboard.nextInt();
+        System.out.println("Choose if ship is placed moving vertically(0) or horizontally(1)");
+        direction = keyboard.nextInt();
+        keyboard.nextLine();
+        game.PlaceShip(Gamemaster, ShipSize, x, y, direction);
+    }
+    
+    public void printMap() {
+        int[][] OwnMap = game.getOwnMap(Gamemaster, Username);
+        int[][] OpponentMap = game.getOpponentMap(Gamemaster, Username);
+        for(int i = 0; i < 10; i += 1) {
+            System.out.print(i + " ");
+            for(int j = 0; j < 10; j += 1) {
+                System.out.print(OwnMap[j][i] + " ");
+            }
+            System.out.print("| ");
+            for(int j = 0; j < 10; j += 1) {
+                System.out.print(OpponentMap[j][i] + " ");
+            }
+            System.out.print("\n");
         }
+        System.out.println("  0 1 2 3 4 5 6 7 8 9   0 1 2 3 4 5 6 7 8 9");
     }
 }
