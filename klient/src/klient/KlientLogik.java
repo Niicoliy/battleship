@@ -22,7 +22,7 @@ import javax.xml.ws.Service;
  */
 public class KlientLogik {
     Scanner keyboard = new Scanner(System.in);
-    String Input, Username, Password, Gamemaster, Gamename;
+    String Input, Username, Password, Gamemaster;
     int Choice, shipsize, x, y;
     int ShootX, ShootY;
     //String directon;
@@ -98,6 +98,8 @@ public class KlientLogik {
                             if(game.getGame(Gamemaster).getGameOver()) {
                                 System.out.println("You lost!");
                                 in_lobby = true;
+                                game.RemoveGame(Gamemaster);
+                                //Remove game
                                 break;
                             }
                             TimeUnit.SECONDS.sleep(1);
