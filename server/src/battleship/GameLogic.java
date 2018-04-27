@@ -130,29 +130,19 @@ public class GameLogic {
             return 3;
         }
     }
-    /*
-    public int IsGameOver(){
-        if(playerturn.equals(player1)){
-            for(int i = 0; i < width; i++){
-                for(int j = 0; j < height; j++){
-                    if(getMap()[i][j] == 2){
-                        return 0; //There are still ships to be shot
-                    }
-                }
-            }
-        }else{ //playerturn == 2
-            for(int i = 0; i < width; i++){
-                for(int j = 10; j < height*2; j++){
-                    if(getMap()[i][j] == 2){
-                        return 0; //There are still ships to be shot
-                    }
+    
+    public Boolean IsGameOver(int[][] OpponentMap){
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+                if(OpponentMap[j][i] == 2){
+                    return false; //There are still ships to be shot
                 }
             }
         }
         gameOver = true;
-        return 1; //no more ships, game is now over
+        return true; //no more ships, game is now over
     }
-*/
+
     /**
      * @param player
      * @return the owners map

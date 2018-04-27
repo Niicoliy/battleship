@@ -28,4 +28,5 @@ public interface GameControllerI {
     @WebMethod public int[][] getHiddenOpponentMap(String GameKey, String Username);
     @WebMethod public Boolean PlaceShip(String Username, String GameKey, int ShipSize, int x, int y, String direction);
     @WebMethod public int Shoot(String Username, String GameKey, int x, int y);
+    @WebMethod public Boolean IsGameOver(String Username, String GameKey);
 }

@@ -85,8 +85,13 @@ public class GameController extends UnicastRemoteObject implements GameControlle
     }
     
     public int Shoot(String Username, String GameKey, int x, int y) {
-        int[][] OpponentMap = games.get(GameKey).getHiddenOpponentMap(Username);
-        int[][] HiddenMap = games.get(GameKey).getActualOpponentMap(Username);
+        int[][] HiddenMap = games.get(GameKey).getHiddenOpponentMap(Username);
+        int[][] OpponentMap = games.get(GameKey).getActualOpponentMap(Username);
         return games.get(GameKey).Shoot(x, y, OpponentMap, HiddenMap);
+    }
+    
+    public Boolean IsGameOver(String Username, String GameKey) {
+        int[][] OpponentMap = games.get(GameKey).getActualOpponentMap(Username);
+        return games.get(GameKey).IsGameOver(OpponentMap);
     }
 }
