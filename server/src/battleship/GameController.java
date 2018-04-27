@@ -71,11 +71,16 @@ public class GameController extends UnicastRemoteObject implements GameControlle
         }
     }
     
-    public int[][] getMap(String GameKey){
-        return games.get(GameKey).getMap();
+    public int[][] getOwnMap(String GameKey, String Username) {
+        return games.get(GameKey).getOwnMap(Username);
     }
     
-    public void getPlaceShip(String GameKey, int shipsize, int x, int y, Boolean horizontalBool){
-        games.get(GameKey).PlaceShip(shipsize, x, y, horizontalBool);
+    public int[][] getOpponentMap(String GameKey, String Username) {
+        return games.get(GameKey).getOpponentMap(Username);
+    }
+    
+    public Boolean PlaceShip(String Username, String GameKey, int ShipSize, int x, int y, String direction) {
+        int[][] map = games.get(GameKey).getOwnMap(Username);
+        return games.get(GameKey).PlaceShip(map, ShipSize, x, y, direction);
     }
 }
