@@ -94,4 +94,8 @@ public class GameController extends UnicastRemoteObject implements GameControlle
         int[][] OpponentMap = games.get(GameKey).getActualOpponentMap(Username);
         return games.get(GameKey).IsGameOver(OpponentMap);
     }
+    
+    public void RemoveGame(String GameKey) {
+        games.remove(GameKey);
+    }
 }
