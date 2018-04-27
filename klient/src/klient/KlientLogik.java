@@ -24,6 +24,7 @@ public class KlientLogik {
     Scanner keyboard = new Scanner(System.in);
     String Input, Username, Password, Gamemaster, Gamename;
     int Choice, shipsize, x, y;
+    int ShootX, ShootY;
     //String directon;
     Boolean horizontalBool;
     Boolean in_lobby = true;
@@ -56,6 +57,7 @@ public class KlientLogik {
             System.out.println("Youre logged in");
             while(playing) {
                 if(in_lobby) {
+                    System.out.println("0. Quit");
                     System.out.println("1. Create new game");
                     System.out.println("2. Join existing game");
                     Choice = keyboard.nextInt();
@@ -96,29 +98,13 @@ public class KlientLogik {
                             TimeUnit.SECONDS.sleep(1);
                         }
                         if(ship_placing) {//Place ships
-                            System.out.println("Place your carrier (5)");
-                            PlaceShip(5);
-                            printMap();
-                            System.out.println("Place your battleship (4)");
-                            PlaceShip(4);
-                            printMap();
-                            System.out.println("Place your cruiser (3)");
-                            PlaceShip(3);
-                            printMap();
-                            System.out.println("Place your destroyers (2)");
-                            for(int i = 0; i < 2; i += 1) {
-                                PlaceShip(2);
-                                printMap();
-                            }
-                            System.out.println("Place your submarines (1)");
-                            for(int i = 0; i < 3; i += 1) {
-                                PlaceShip(1);
-                                printMap();
-                            }
+                            PlaceShips();
                             ship_placing = false;
                         }
                         else { //Play the game
+                            Shoot();
                             printMap();
+                            //Is game over?
                         }
                         game.togglePlayerturn(Gamemaster);
                         System.out.println("Turn has changed, it is no longer your turn");
@@ -133,6 +119,48 @@ public class KlientLogik {
         }
         else {
             System.out.println("Youre not logged in");
+        }
+    }
+    
+    public void Shoot() {
+        System.out.print("Choose x-coordinate: ");
+        ShootX = keyboard.nextInt();
+        System.out.print("Choose y-coordinate: ");
+        ShootY = keyboard.nextInt();
+        keyboard.nextLine();
+        int response = game.Shoot(Username, Gamemaster, ShootX, ShootY);
+        switch(response) {
+            case 1:
+                System.out.println("Hit water");
+                break;
+            case 2:
+                System.out.println("Hit ship");
+                break;
+            case 3:
+                System.out.println("Hit previously hit target");
+                break;
+        }
+    }
+    
+    public void PlaceShips() {
+        System.out.println("Place your carrier (5)");
+        PlaceShip(5);
+        printMap();
+        System.out.println("Place your battleship (4)");
+        PlaceShip(4);
+        printMap();
+        System.out.println("Place your cruiser (3)");
+        PlaceShip(3);
+        printMap();
+        System.out.println("Place your destroyers (2)");
+        for(int i = 0; i < 2; i += 1) {
+            PlaceShip(2);
+            printMap();
+        }
+        System.out.println("Place your submarines (1)");
+        for(int i = 0; i < 3; i += 1) {
+            PlaceShip(1);
+            printMap();
         }
     }
     
@@ -156,7 +184,7 @@ public class KlientLogik {
     
     public void printMap() {
         int[][] OwnMap = game.getOwnMap(Gamemaster, Username);
-        int[][] OpponentMap = game.getOpponentMap(Gamemaster, Username);
+        int[][] OpponentMap = game.getHiddenOpponentMap(Gamemaster, Username);
         for(int i = 0; i < 10; i += 1) {
             System.out.print(i + " ");
             for(int j = 0; j < 10; j += 1) {
