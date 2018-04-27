@@ -25,6 +25,7 @@ public interface GameControllerI {
     @WebMethod public GameLogic getGame(String GameStarter);
     @WebMethod public Set getAllGames();
     @WebMethod public int[][] getOwnMap(String GameKey, String Username);
-    @WebMethod public int[][] getOpponentMap(String GameKey, String Username);
+    @WebMethod public int[][] getHiddenOpponentMap(String GameKey, String Username);
     @WebMethod public Boolean PlaceShip(String Username, String GameKey, int ShipSize, int x, int y, String direction);
+    @WebMethod public int Shoot(String Username, String GameKey, int x, int y);
 }

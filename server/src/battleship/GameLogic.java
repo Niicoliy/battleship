@@ -116,25 +116,21 @@ public class GameLogic {
         return true; //ship placed
     }
     
-    /*
-    public int Shoot(int x, int y){
-        if(playerturn.equals(player1)){//== 1 == true
-            if(getMap()[x][y] != 2){
-                return 0; //didnt hit undamaged ship
-            }else{
-                map1[x][y] = 3; //hit undamaged ship
-                return 1;
-            }
-        }else{ //playerturn == 2
-            if(getMap()[x][y+10] != 2){
-                return 0; //didnt hit undamaged ship
-            }else{
-                map1[x][y+10] = 3; //hit undamaged ship
-                return 1;
-            }
+    
+    public int Shoot(int x, int y, int[][] OpponentMap, int[][] HiddenMap){
+        if(OpponentMap[y][x] == 0) { //Hit water
+            HiddenMap[y][x] = 1;
+            return 1;
+        }
+        else if(OpponentMap[y][x] == 2) { //Hit ship
+            HiddenMap[x][y] = 3; 
+            return 2;
+        }
+        else { //Hit previously hit tile 
+            return 3;
         }
     }
-    
+    /*
     public int IsGameOver(){
         if(playerturn.equals(player1)){
             for(int i = 0; i < width; i++){
@@ -170,11 +166,20 @@ public class GameLogic {
         }
     }
     
+    public int[][] getActualOpponentMap(String player) {
+        if(player.equals(player1)) {
+            return map2;
+        }
+        else {
+            return map1;
+        }
+    }
+    
     /**
      * @param player
      * @return the owners map
      */
-    public int[][] getOpponentMap(String player) {
+    public int[][] getHiddenOpponentMap(String player) {
         if(player.equals(player1)) {
             return map2hidden;
         }
