@@ -10,7 +10,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +23,8 @@ import javax.xml.ws.Service;
 public class KlientLogik {
     Scanner keyboard = new Scanner(System.in);
     String Input, Username, Password, Gamemaster, Gamename;
-    int Choice, shipsize, x, y, direction;
+    int Choice, shipsize, x, y;
+    //String directon;
     Boolean horizontalBool;
     Boolean in_lobby = true;
     Boolean playing = true;
@@ -137,14 +137,21 @@ public class KlientLogik {
     }
     
     public void PlaceShip(int ShipSize) {
-        System.out.println("Choose start x coordinate");
-        x = keyboard.nextInt();
-        System.out.println("Choose start y coordinate");
-        y = keyboard.nextInt();
-        System.out.println("Choose if ship is placed moving vertically(0) or horizontally(1)");
-        direction = keyboard.nextInt();
-        keyboard.nextLine();
-        game.PlaceShip(Gamemaster, ShipSize, x, y, direction);
+        Boolean ShipPlaced = false;
+        while(!ShipPlaced) {
+            System.out.print("Choose x-coordinate: ");
+            x = keyboard.nextInt();
+            System.out.print("Choose y-coordinate: ");
+            y = keyboard.nextInt();
+            keyboard.nextLine();
+            System.out.print("(V)ertical or (H)orizontal: ");
+            String direction = keyboard.nextLine();
+            //keyboard.nextLine();
+            ShipPlaced = game.PlaceShip(Username, Gamemaster, ShipSize, x, y, direction);
+            if(!ShipPlaced) {
+                System.out.println("Placing of ship failed try again");
+            }
+        }
     }
     
     public void printMap() {
