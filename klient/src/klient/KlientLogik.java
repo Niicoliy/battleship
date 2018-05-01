@@ -10,11 +10,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+
 
 /**
  *
@@ -30,6 +32,7 @@ public class KlientLogik {
     Boolean in_lobby = true;
     Boolean playing = true;
     Boolean ship_placing;
+    Boolean not_shot;
     Set games;
     GameControllerI game;
     //GameLogic currentGame;
@@ -82,6 +85,7 @@ public class KlientLogik {
                             }
                             else {
                                 System.out.println("Invalid input");
+                                System.out.println("Game was not found!");
                             }
                             break;
                         case 0:
@@ -106,10 +110,12 @@ public class KlientLogik {
                         }
                         if(!game.getGame(Gamemaster).getGameOver()) { //Put so losing player doesn't call any functions
                             if(ship_placing) {//Place ships
+                                System.out.println("Its your turn to place your ships!");
                                 PlaceShips();
                                 ship_placing = false;
                             }
                             else { //Play the game
+                                System.out.println("Its your turn to shoot!");
                                 Shoot();
                                 printMap();
                                 if(game.IsGameOver(Username, Gamemaster)) {
@@ -135,22 +141,35 @@ public class KlientLogik {
     }
     
     public void Shoot() {
-        System.out.print("Choose x-coordinate: ");
-        ShootX = keyboard.nextInt();
-        System.out.print("Choose y-coordinate: ");
-        ShootY = keyboard.nextInt();
-        keyboard.nextLine();
-        int response = game.Shoot(Username, Gamemaster, ShootX, ShootY);
-        switch(response) {
-            case 1:
-                System.out.println("Hit water");
-                break;
-            case 2:
-                System.out.println("Hit ship");
-                break;
-            case 3:
-                System.out.println("Hit previously hit target");
-                break;
+        not_shot = true;
+        while(not_shot){
+            try { 
+                System.out.print("Choose x-coordinate: ");
+                ShootX = keyboard.nextInt();
+                System.out.print("Choose y-coordinate: ");
+                ShootY = keyboard.nextInt();
+                keyboard.nextLine();
+                int response = game.Shoot(Username, Gamemaster, ShootX, ShootY);
+                switch(response) {
+                    case 1:
+                        System.out.println("Hit water");
+                        not_shot = false;
+                        break;
+                    case 2:
+                        System.out.println("Hit ship");
+                        not_shot = false;
+                        break;
+                    case 3:
+                        System.out.println("You already shot here, shoot somewhere else");
+                        break;
+                }
+            }
+            catch(InputMismatchException ex) {
+                keyboard.nextLine(); //clears line read
+            }
+            if(not_shot){
+                System.out.println("Failed to shoot, try again");
+            }
         }
     }
     
@@ -179,18 +198,23 @@ public class KlientLogik {
     public void PlaceShip(int ShipSize) {
         Boolean ShipPlaced = false;
         while(!ShipPlaced) {
-            System.out.print("Choose x-coordinate: ");
-            x = keyboard.nextInt();
-            System.out.print("Choose y-coordinate: ");
-            y = keyboard.nextInt();
-            keyboard.nextLine();
-            System.out.print("(V)ertical or (H)orizontal: ");
-            String direction = keyboard.nextLine();
-            //keyboard.nextLine();
-            ShipPlaced = game.PlaceShip(Username, Gamemaster, ShipSize, x, y, direction);
-            if(!ShipPlaced) {
-                System.out.println("Placing of ship failed try again");
+            try{
+                System.out.print("Choose x-coordinate: ");
+                x = keyboard.nextInt();
+                System.out.print("Choose y-coordinate: ");
+                y = keyboard.nextInt();
+                keyboard.nextLine();
+                System.out.print("(V)ertical or (H)orizontal: ");
+                String direction = keyboard.nextLine();
+                //keyboard.nextLine();
+                ShipPlaced = game.PlaceShip(Username, Gamemaster, ShipSize, x, y, direction);
             }
+            catch(InputMismatchException ex) {
+                keyboard.nextLine(); //clears line read
+            }
+            if(!ShipPlaced) {
+                    System.out.println("Placing of ship failed try again");
+                }
         }
     }
     
