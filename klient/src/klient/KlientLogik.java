@@ -47,8 +47,6 @@ public class KlientLogik {
         Service service = Service.create(url, qname);
         QName port_name = new QName("http://battleship/", "GameControllerPort");
         game = service.getPort(port_name, GameControllerI.class);
-
-        //spil.nulstil();
         
         System.out.println("Log in to Jakobs linux server");
         System.out.println("Write your username");
