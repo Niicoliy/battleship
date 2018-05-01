@@ -1,10 +1,8 @@
 package rest;
 
-import battleship.GameController;
 import battleship.GameControllerI;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.RemoteException;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
@@ -21,14 +19,13 @@ public class GameResource {
     
     public GameResource() throws MalformedURLException {
         URL url = new URL("http://ubuntu4.saluton.dk:47713/battleship?WSDL");
-        //URL url = new URL("http://ubuntu4.saluton.dk:4443/GalgeTest?WSDL"); //on ubunto server
         QName qname = new QName("http://battleship/", "GameControllerService");
         Service service = Service.create(url, qname);
         QName port_name = new QName("http://battleship/", "GameControllerPort");
         game = service.getPort(port_name, GameControllerI.class);
     }
     /**
-     * Retrieves representation of an instance of helloworld.GameResource
+     * Retrieves representation of an instance of game.GameResource
      * @return an instance of java.lang.String
      */
     @GET
