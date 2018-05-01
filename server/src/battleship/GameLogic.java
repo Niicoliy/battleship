@@ -84,7 +84,7 @@ public class GameLogic {
             //System.out.println("Width error");
             return false;
         }
-        if(((shipsize + y > height) && !(direction.equalsIgnoreCase("V"))) || y < 0 || y > height-1) {
+        if(((shipsize + y > height) && (direction.equalsIgnoreCase("V"))) || y < 0 || y > height-1) {
             //System.out.println("Height error");
             return false;
         }
@@ -118,12 +118,17 @@ public class GameLogic {
     
     
     public int Shoot(int x, int y, int[][] OpponentMap, int[][] HiddenMap){
+        if(x > height-1 || y > height-1 || x < 0 || y < 0) { 
+            return 0;
+        }
         if(OpponentMap[y][x] == 0) { //Hit water
             HiddenMap[y][x] = 1;
+            OpponentMap[y][x] = 1;
             return 1;
         }
         else if(OpponentMap[y][x] == 2) { //Hit ship
             HiddenMap[x][y] = 3; 
+            OpponentMap[y][x] = 3;
             return 2;
         }
         else { //Hit previously hit tile 
