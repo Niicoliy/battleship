@@ -33,6 +33,13 @@ public class GameResource {
         game = service.getPort(port_name, GameControllerI.class);
     }
     
+    @Path("/test")
+    @GET
+    @Produces("text/html")
+    public String Test() {
+        return "test";
+    }
+    
     @Path("/lobby")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
