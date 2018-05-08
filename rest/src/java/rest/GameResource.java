@@ -64,6 +64,15 @@ public class GameResource {
         return Response.status(Response.Status.OK).build();
     }
     
+    @Path("/lobby/gethighscore")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getHighscore() {
+        //return Highscore_table.toString(); //returnerer hashtablen som en string
+        String highscoretable = game.getHighScore();
+        return Response.ok(highscoretable).build();
+    }
+    
     @Path("/game")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -141,6 +150,14 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response RemoveGame(@QueryParam("GameKey") String GameKey) {
         game.RemoveGame(GameKey);
+        return Response.ok().build();
+    }
+    
+    @Path("/game/addHighScore")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addHighScore(@QueryParam("Playername") String Playername, @QueryParam("Score") Integer Score) {
+        game.addHighScore(Playername, Score);
         return Response.ok().build();
     }
 }
