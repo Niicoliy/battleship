@@ -130,7 +130,7 @@ public class GameLogic {
             return 1;
         }
         else if(OpponentMap[y][x] == 2) { //Hit ship
-            HiddenMap[x][y] = 3; 
+            HiddenMap[y][x] = 3; 
             OpponentMap[y][x] = 3;
             return 2;
         }
