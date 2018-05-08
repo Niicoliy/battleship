@@ -153,7 +153,7 @@ public class GameResource {
         return Response.ok().build();
     }
     
-    @Path("/game/addHighScore")
+    @Path("/game/addhighscore")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response addHighScore(@QueryParam("Playername") String Playername, @QueryParam("Score") Integer Score) {
