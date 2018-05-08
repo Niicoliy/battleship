@@ -30,4 +30,6 @@ public interface GameControllerI {
     @WebMethod public int Shoot(String Username, String GameKey, int x, int y);
     @WebMethod public Boolean IsGameOver(String Username, String GameKey);
     @WebMethod public void RemoveGame(String GameKey);
+    @WebMethod public String getHighScore();
+    @WebMethod public void addHighScore(String Playername, Integer Score);
 }

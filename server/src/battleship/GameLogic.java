@@ -37,6 +37,7 @@ public class GameLogic {
     private Boolean gameOver;
     Scanner keyboard = new Scanner(System.in);  
     String Input, Username, Password;
+    private Integer P1Score,P2Score;
     
     private String playerturn; 
                             //false = player one
@@ -51,6 +52,8 @@ public class GameLogic {
         map2hidden = new int[height][width];
         ready_to_start = false;
         gameOver = false;
+        P1Score = 0;
+        P2Score = 0;
         EmptyMap();
     }
     

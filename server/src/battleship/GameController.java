@@ -23,9 +23,11 @@ import javax.jws.WebService;
 @WebService(endpointInterface = "battleship.GameController")
 public class GameController extends UnicastRemoteObject implements GameControllerI{
     private Hashtable<String, GameLogic> games;
+    private Hashtable<String, Integer> Highscore_table;
     
     public GameController() throws RemoteException {
-        games=new Hashtable<>();
+        games = new Hashtable<>();
+        Highscore_table = new Hashtable<>();
     }
     
     //TODO: Dont allow these functions with out identifyable user
@@ -36,7 +38,7 @@ public class GameController extends UnicastRemoteObject implements GameControlle
     public void JoinGame(String GameKey, String NewPlayer) {
         if(games.containsKey(GameKey)) {
             games.get(GameKey).PlayerJoin(GameKey, NewPlayer);
-        }
+        } 
     }
     
     public void togglePlayerturn(String GameKey) {
@@ -49,6 +51,22 @@ public class GameController extends UnicastRemoteObject implements GameControlle
     
     public Set getAllGames() {
         return games.keySet();
+    }
+    
+    public String getHighScore() {
+        return Highscore_table.toString(); //returnerer hashtablen som en string
+    }
+    
+    public void addHighScore(String Playername, Integer Score) {
+        if(Highscore_table.containsKey(Playername)){ //check if player already got a recorded highscore
+            if(Highscore_table.get(Playername) < Score){ //If new score is higher than old
+                Highscore_table.put(Playername, Score);
+            }else{
+                //Do nothing
+            } 
+            return;
+        }
+        Highscore_table.put(Playername, Score);
     }
    
     public Boolean BrugerLogin(String Username, String Password) throws NotBoundException, RemoteException, MalformedURLException{
