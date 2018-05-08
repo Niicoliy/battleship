@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+import java.lang.Integer;
 
 
 /**
@@ -27,6 +28,7 @@ public class KlientLogik {
     String Input, Username, Password, Gamemaster;
     int Choice, shipsize, x, y;
     int ShootX, ShootY;
+    Integer Score = 0;
     //String directon;
     Boolean horizontalBool;
     Boolean in_lobby = true;
@@ -41,8 +43,8 @@ public class KlientLogik {
         System.out.println("Welcome to BATTLESHIP!");
         
         //Attempt to connect to game server        
-        //URL url = new URL("http://localhost:2429/battleship?WSDL");        //on local host
-        URL url = new URL("http://ubuntu4.saluton.dk:47713/battleship?WSDL"); //on ubunto server
+        URL url = new URL("http://localhost:47713/battleship?WSDL");        //on local host
+        //URL url = new URL("http://ubuntu4.saluton.dk:47713/battleship?WSDL"); //on ubunto server
         QName qname = new QName("http://battleship/", "GameControllerService");
         Service service = Service.create(url, qname);
         QName port_name = new QName("http://battleship/", "GameControllerPort");
@@ -61,6 +63,7 @@ public class KlientLogik {
                     System.out.println("0. Quit");
                     System.out.println("1. Create new game");
                     System.out.println("2. Join existing game");
+                    System.out.println("3. Print highscore list");
                     Choice = keyboard.nextInt();
                     keyboard.nextLine();
                     switch(Choice) {
@@ -86,6 +89,9 @@ public class KlientLogik {
                                 System.out.println("Game was not found!");
                             }
                             break;
+                        case 3:
+                            System.out.println("Printing highscore");
+                            System.out.println(game.getHighScore());
                         case 0:
                             playing=false;
                             break;
@@ -117,7 +123,8 @@ public class KlientLogik {
                                 Shoot();
                                 printMap();
                                 if(game.IsGameOver(Username, Gamemaster)) {
-                                    System.out.println("You won!");
+                                    System.out.println("The game is now over!");
+                                    game.addHighScore(Username, Score);
                                     in_lobby = true;
                                 }
                             }
@@ -151,10 +158,12 @@ public class KlientLogik {
                 switch(response) {
                     case 1:
                         System.out.println("Hit water");
+                        Score-=1;
                         not_shot = false;
                         break;
                     case 2:
                         System.out.println("Hit ship");
+                        Score+=5;
                         not_shot = false;
                         break;
                     case 3:
