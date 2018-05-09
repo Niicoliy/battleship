@@ -43,8 +43,8 @@ public class KlientLogik {
         System.out.println("Welcome to BATTLESHIP!");
         
         //Attempt to connect to game server        
-        URL url = new URL("http://localhost:47713/battleship?WSDL");        //on local host
-        //URL url = new URL("http://ubuntu4.saluton.dk:47713/battleship?WSDL"); //on ubunto server
+        //URL url = new URL("http://localhost:47713/battleship?WSDL");        //on local host
+        URL url = new URL("http://ubuntu4.saluton.dk:47713/battleship?WSDL"); //on ubunto server
         QName qname = new QName("http://battleship/", "GameControllerService");
         Service service = Service.create(url, qname);
         QName port_name = new QName("http://battleship/", "GameControllerPort");
