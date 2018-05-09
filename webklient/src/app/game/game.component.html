@@ -1,3 +1,26 @@
-<p>
-  game works!
-</p>
+<div class="container color-dark">
+  <div class="col">
+    <p>
+      Your board
+    </p>
+  </div>
+  <div class="col">
+    <p>
+      Your opponents board
+    </p>
+  </div>
+</div>
+<div class="container color-light">
+  <div class="col">
+    <p class="sm" *ngFor="let yourBoard of yourBoard, let i = index" (click)="placeShip(i)">
+      {{ yourBoard }}
+    </p>
+    <p>{{ placeText }}</p>
+  </div>
+  <div class="col">
+    <p class="sm" *ngFor="let opponentBoard of opponentBoard, let i = index" (click)="shoot(i)">
+      {{ opponentBoard }}
+    </p>
+    <p>{{ shootText }}</p>
+  </div>
+</div>
