@@ -26,6 +26,7 @@ public class GameResource {
     GameControllerI game;
     
     public GameResource() throws MalformedURLException {
+        //URL url = new URL("http://localhost:47713/battleship?WSDL");        //on local host
         URL url = new URL("http://ubuntu4.saluton.dk:47713/battleship?WSDL");
         QName qname = new QName("http://battleship/", "GameControllerService");
         Service service = Service.create(url, qname);
@@ -65,7 +66,7 @@ public class GameResource {
     }
     
     @Path("/lobby/gethighscore")
-    @POST
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHighscore() {
         //return Highscore_table.toString(); //returnerer hashtablen som en string
