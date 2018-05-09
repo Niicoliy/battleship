@@ -67,6 +67,7 @@ public class GameController extends UnicastRemoteObject implements GameControlle
             return;
         }
         Highscore_table.put(Playername, Score);
+        return;
     }
    
     public Boolean BrugerLogin(String Username, String Password) throws NotBoundException, RemoteException, MalformedURLException{
