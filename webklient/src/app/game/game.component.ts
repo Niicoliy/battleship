@@ -28,7 +28,7 @@ export class GameComponent implements OnInit {
   placeText: string = "";
   shootText: string = "";
 
-  yourBoard: number[] = [];
+  yourBoard: any[] = [];
   yourRows =     [[0,0,0,0,0,0,0,0,0,0],
                   [0,1,0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0],
@@ -39,7 +39,7 @@ export class GameComponent implements OnInit {
                   [0,0,3,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0]];
-  opponentBoard: number[] = [];
+  opponentBoard: any[] = [];
   opponentRows = [[0,0,0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0],
