@@ -12,15 +12,36 @@
 </div>
 <div class="container color-light">
   <div class="col">
-    <p class="sm" *ngFor="let yourBoard of yourBoard, let i = index" (click)="placeShip(i)">
-      {{ yourBoard }}
-    </p>
+    <table>
+      <tr *ngFor="let row of yourBoard; let j = index">
+        <td *ngFor="let cell of row; let i = index" [ngStyle]="{'background-color': decorateCell(cell)}" (click)="placeShip(i,j)">
+          <b>&nbsp; &nbsp; &nbsp; </b>
+        </td>
+      </tr>
+    </table>
     <p>{{ placeText }}</p>
+
   </div>
   <div class="col">
-    <p class="sm" *ngFor="let opponentBoard of opponentBoard, let i = index" (click)="shoot(i)">
-      {{ opponentBoard }}
-    </p>
+    <table>
+      <tr *ngFor="let row of opponentBoard; let j = index">
+        <td *ngFor="let cell of row; let i = index" [ngStyle]="{'background-color': decorateCell(cell)}" (click)="shoot(i,j)">
+          <b>&nbsp; &nbsp; &nbsp; </b>
+        </td>
+      </tr>
+    </table>
     <p>{{ shootText }}</p>
   </div>
+</div>
+
+<div class="container">
+<table>
+  <tr>
+    <td [ngStyle]="{'background-color': decorateCell(0)}"><b> &nbsp; Empty/unknown cell &nbsp; </b></td>
+    <td [ngStyle]="{'background-color': decorateCell(1)}"><b> &nbsp; Empty cell hit &nbsp; </b></td>
+    <td [ngStyle]="{'background-color': decorateCell(2)}"><b> &nbsp; Ship placed in cell &nbsp; </b></td>
+    <td [ngStyle]="{'background-color': decorateCell(3)}"><b> &nbsp; Ship hit &nbsp; </b></td>
+    <td [ngStyle]="{'background-color': decorateCell(4)}"><b> &nbsp; Ship sunk &nbsp; </b></td>
+  </tr>
+</table>
 </div>

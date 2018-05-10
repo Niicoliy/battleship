@@ -28,45 +28,62 @@ export class GameComponent implements OnInit {
   placeText: string = "";
   shootText: string = "";
 
-  // yourBoard: [][];
-  // opponentBoard: [][];
+  yourBoard: number[] = [];
+  yourRows =     [[0,0,0,0,0,0,0,0,0,0],
+                  [0,1,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0],
+                  [0,0,2,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,1,0,0],
+                  [0,0,3,0,4,0,0,1,0,0],
+                  [0,0,3,0,4,0,0,1,0,0],
+                  [0,0,3,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0]];
+  opponentBoard: number[] = []
+  opponentRows = [[0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,1,1,1,1,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0]];
 
-  yourBoard: number[10][10] =    [[0,0,0,0,0,0,0,0,0,0],
-                                  [0,1,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,1,0,0],
-                                  [0,0,0,0,0,0,0,1,0,0],
-                                  [0,0,0,0,0,0,0,1,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0]];
-  opponentBoard: number[10][10]= [[0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,1,1,1,1,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0],
-                                  [0,0,0,0,0,0,0,0,0,0]];
-
-  constructor() { }
+  constructor() {
+    this.yourBoard = this.yourRows;
+    this.opponentBoard = this.opponentRows;
+  }
 
   ngOnInit() {
 
   }
 
-  placeShip(i) {
-    this.placeText = 'You placed a ship! ' + i;
+  placeShip(i,j) {
+    this.placeText = 'You placed a ship! ' + i + ',' + j;
     setTimeout(()=>{ this.placeText = ''; }, 1000)
 
   }
 
-  shoot(i) {
-    this.shootText = 'You fired a shot! ' + i;
+  shoot(i,j) {
+    this.shootText = 'You fired a shot! ' + i + ',' + j;
     setTimeout(()=>{ this.shootText = ''; }, 1000)
+  }
+
+  decorateCell(cell) {
+    switch (cell) {
+      case 0:
+        return '#57B3F1';
+      case 1:
+        return '#2885C4';
+      case 2:
+        return '#2E9CE6';
+      case 3:
+        return '#ff0000';
+      case 4:
+        return '#00ff00';
+    }
   }
 
 }

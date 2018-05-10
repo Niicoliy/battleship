@@ -25,6 +25,14 @@ a {
   text-decoration: none;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid white;
+}
+
 .container {
   display: grid;
   grid-template-columns: 50% auto;
