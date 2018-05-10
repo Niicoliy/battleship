@@ -14,6 +14,5 @@ export class DataService {
 
   changeGoal(goal) {
     this.goals.next(goal);
-
   }
 }
