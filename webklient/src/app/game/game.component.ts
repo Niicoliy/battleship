@@ -39,7 +39,7 @@ export class GameComponent implements OnInit {
                   [0,0,3,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0]];
-  opponentBoard: number[] = []
+  opponentBoard: number[] = [];
   opponentRows = [[0,0,0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0],
