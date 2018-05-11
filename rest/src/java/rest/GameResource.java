@@ -44,9 +44,9 @@ public class GameResource {
     @Path("/lobby")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response BrugerLogin(@QueryParam("GameKey") String GameKey, @QueryParam("Password") String Password) throws NotBoundException, RemoteException, MalformedURLException{
-        game.BrugerLogin(GameKey, Password);
-        return Response.ok().build();
+    public Response BrugerLogin(@QueryParam("Username") String Username, @QueryParam("Password") String Password) throws NotBoundException, RemoteException, MalformedURLException{
+        Boolean BrugerLogin = game.BrugerLogin(Username, Password);
+        return Response.ok(BrugerLogin).build();
     }
     
     @Path("/lobby/newgame")
