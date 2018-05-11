@@ -17,6 +17,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 To run and deploy on Github Pages:
 `ng build --prod --output-path ../docs --base-href battleship`
 
+After this, copy index.html to 404.html, and commit and push to github - remember to select the docs folder whe pushing.
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).

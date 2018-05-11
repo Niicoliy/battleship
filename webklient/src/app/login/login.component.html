@@ -15,9 +15,9 @@
   <div class="col">
     <form>
       <p class="sm">Username:</p>
-      <input type="text" class="txt" name="username" placeholder="e.g. s123456" [(ngModel)]="loginusername" />
+      <input type="text" class="txt" name="username" placeholder="e.g. s123456" [(ngModel)]="loginUsername" />
       <p class="sm">Password:</p>
-      <input type="text" class="txt" name="password" placeholder="e.g. password" [(ngModel)]="loginpassword" />
+      <input type="text" class="txt" name="password" placeholder="e.g. password" [(ngModel)]="loginPassword" />
       <input type="submit" class="btn" [value]="btnText" (click)="login()"/>
     </form>
     <p>{{ loginText }}</p>
