@@ -46,7 +46,10 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response BrugerLogin(@QueryParam("Username") String Username, @QueryParam("Password") String Password) throws NotBoundException, RemoteException, MalformedURLException{
         Boolean BrugerLogin = game.BrugerLogin(Username, Password);
-        return Response.ok(BrugerLogin).build();
+        return Response.ok()
+                        .entity(BrugerLogin)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/lobby/newgame")
@@ -54,7 +57,10 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response NewGame(@QueryParam("GameKey") String GameKey) throws RemoteException {
         game.NewGame(GameKey);
-        return Response.status(Response.Status.OK).build();
+        return Response.ok()
+                        .entity(Response.Status.OK)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/lobby/joingame")
@@ -62,7 +68,10 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response JoinGame(@QueryParam("GameKey") String GameKey, @QueryParam("NewPlayer") String NewPlayer) {
         game.JoinGame(GameKey, NewPlayer);
-        return Response.status(Response.Status.OK).build();
+        return Response.ok()
+                        .entity(Response.Status.OK)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/lobby/gethighscore")
@@ -71,7 +80,10 @@ public class GameResource {
     public Response getHighscore() {
         //return Highscore_table.toString(); //returnerer hashtablen som en string
         String highscoretable = game.getHighScore();
-        return Response.ok(highscoretable).build();
+        return Response.ok()
+                        .entity(highscoretable)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/game")
@@ -79,7 +91,10 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response togglePlayerturn(@QueryParam("GameKey") String GameKey) {
         game.togglePlayerturn(GameKey);
-        return Response.status(Response.Status.OK).build();
+        return Response.ok()
+                        .entity(Response.Status.OK)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/game/game")
@@ -87,15 +102,21 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getGame(@QueryParam("GameKey") String GameKey) {
         GameLogic localgame = game.getGame(GameKey);
-        return Response.ok(localgame).build();
+        return Response.ok()
+                        .entity(localgame)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
-    
+                       
     @Path("/game/games")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllGames() {
         Set games = game.getAllGames();
-        return Response.ok(games).build();
+        return Response.ok()
+                        .entity(games)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/game/ownmap")
@@ -103,7 +124,10 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOwnMap(@QueryParam("GameKey") String GameKey, @QueryParam("Username") String Username) {
         int[][] map = game.getOwnMap(GameKey, Username);
-        return Response.ok(map).build();
+        return Response.ok()
+                        .entity(map)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/game/oppmap")
@@ -111,7 +135,10 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHiddenOpponentMap(@QueryParam("GameKey") String GameKey, @QueryParam("Username") String Username) {
         int[][] map = game.getHiddenOpponentMap(GameKey, Username);
-        return Response.ok(map).build();
+        return Response.ok()
+                        .entity(map)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/game/placeship")
@@ -124,7 +151,10 @@ public class GameResource {
                                 @QueryParam("Y") int Y,
                                 @QueryParam("Direction") String Direction) {
         Boolean PlaceShipResult = game.PlaceShip(Username, GameKey, ShipSize, X, Y, Direction);
-        return Response.ok(PlaceShipResult).build();
+        return Response.ok()
+                        .entity(PlaceShipResult)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/game/shoot")
@@ -135,7 +165,10 @@ public class GameResource {
                             @QueryParam("X") int X,
                             @QueryParam("Y") int Y) {
         int ShootResult = game.Shoot(Username, GameKey, X, Y);
-        return Response.ok(ShootResult).build();
+        return Response.ok()
+                        .entity(ShootResult)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/game/gameover")
@@ -143,7 +176,10 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response IsGameOver(@QueryParam("Username") String Username, @QueryParam("GameKey") String GameKey) {
         Boolean GameOver = game.IsGameOver(Username, GameKey);
-        return Response.ok(GameOver).build();
+        return Response.ok()
+                        .entity(GameOver)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/game/remove")
@@ -151,7 +187,9 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response RemoveGame(@QueryParam("GameKey") String GameKey) {
         game.RemoveGame(GameKey);
-        return Response.ok().build();
+        return Response.ok()
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
     
     @Path("/game/addhighscore")
@@ -159,6 +197,8 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addHighScore(@QueryParam("Playername") String Playername, @QueryParam("Score") Integer Score) {
         game.addHighScore(Playername, Score);
-        return Response.ok().build();
+        return Response.ok()
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build();
     }
 }
