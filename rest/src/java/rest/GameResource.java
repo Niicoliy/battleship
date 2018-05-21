@@ -49,6 +49,8 @@ public class GameResource {
         return Response.ok()
                         .entity(BrugerLogin)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -61,6 +63,8 @@ public class GameResource {
         return Response.ok()
                         .entity(Response.Status.OK)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -73,6 +77,8 @@ public class GameResource {
         return Response.ok()
                         .entity(Response.Status.OK)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -86,6 +92,8 @@ public class GameResource {
         return Response.ok()
                         .entity(highscoretable)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -98,6 +106,8 @@ public class GameResource {
         return Response.ok()
                         .entity(Response.Status.OK)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -110,6 +120,8 @@ public class GameResource {
         return Response.ok()
                         .entity(localgame)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -122,6 +134,8 @@ public class GameResource {
         return Response.ok()
                         .entity(games)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -134,6 +148,8 @@ public class GameResource {
         return Response.ok()
                         .entity(map)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -146,6 +162,8 @@ public class GameResource {
         return Response.ok()
                         .entity(map)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -163,6 +181,8 @@ public class GameResource {
         return Response.ok()
                         .entity(PlaceShipResult)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -178,6 +198,8 @@ public class GameResource {
         return Response.ok()
                         .entity(ShootResult)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -190,6 +212,8 @@ public class GameResource {
         return Response.ok()
                         .entity(GameOver)
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -201,6 +225,8 @@ public class GameResource {
         game.RemoveGame(GameKey);
         return Response.ok()
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
@@ -212,6 +238,8 @@ public class GameResource {
         game.addHighScore(Playername, Score);
         return Response.ok()
                         .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Credentials", "true")
                         .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                         .build();
     }
