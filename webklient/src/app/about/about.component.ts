@@ -21,8 +21,11 @@ export class AboutComponent implements OnInit {
     this._data.goal.subscribe(res => this.goals = res);
 
     this.http.get('http://ubuntu4.saluton.dk:47714/rest/resources/game/game/games').subscribe(data => {
-      console.log(data);
-    })
+      console.log("Available games= " + data);
+    });
+    // this.http.post('http://ubuntu4.saluton.dk:47714/rest/resources/game/lobby?Username=s164911&Password=takRanders').subscribe(data => {
+    //   console.log("Login success? " + data);
+    //});
   }
 
   sendMeHome() {

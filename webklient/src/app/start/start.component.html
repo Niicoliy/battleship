@@ -1,0 +1,25 @@
+<div class="container color-dark">
+  <div class="col">
+    <p class="heading">
+      Start a new game
+    </p>
+  </div>
+  <div class="col">
+    <p class="heading">
+      Join an existing game
+    </p>
+  </div>
+</div>
+
+<div class="container color-light" [@games]="games.length">
+  <div class="col">
+    <form>
+      <input type="submit" class="btn" [value]="btnStartTxt" (click)="newGame()"/>
+    </form>
+  </div>
+  <div class="col">
+    <p class="life-container" *ngFor="let game of games, let i = index" (click)="startGame(i)">
+      {{ game }}
+    </p>
+  </div>
+</div>

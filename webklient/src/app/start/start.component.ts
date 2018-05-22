@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { DataService } from '../data.service';
+import {Router} from "@angular/router";
+
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-start',
+  templateUrl: './start.component.html',
+  styleUrls: ['./start.component.scss'],
   animations: [
-    trigger('goals', [
+    trigger('games', [
       transition('* => *', [
         query(':enter', style({ opacity: 0 }), {optional: true}),
 
@@ -30,31 +32,23 @@ import { DataService } from '../data.service';
   ]
 })
 
-export class HomeComponent implements OnInit {
+export class StartComponent implements OnInit {
 
   itemCount: number;
-  btnText: string = 'Add an item';
-  goalText: string = 'My first life goal';
-  goals = [];
+  btnStartTxt: string = 'Start new game';
+  games = [];
 
-  constructor(private _data: DataService) { }
+  constructor(private _data: DataService, private router:Router) { }
 
   ngOnInit() {
-    this._data.goal.subscribe(res => this.goals = res);
-    this.itemCount = this.goals.length;
-    this._data.changeGoal(this.goals);
+    this._data.game.subscribe(res => this.games = res);
+    this.itemCount = this.games.length;
+    this._data.changeGoal(this.games);
   }
 
-  addItem() {
-    this.goals.push(this.goalText);
-    this.goalText = '';
-    this.itemCount = this.goals.length;
-    this._data.changeGoal(this.goals);
+  startGame(i) {
+    this.router.navigate(['game']);
+    // this.goals.splice(i, 1);
+    // this._data.changeGoal(this.goals);
   }
-
-  removeItem(i) {
-    this.goals.splice(i, 1);
-    this._data.changeGoal(this.goals);
-  }
-
 }
